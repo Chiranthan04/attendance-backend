@@ -35,22 +35,19 @@
 # torchvision==0.16.0
 
 
-
-flask==3.0.0
-flask-cors==4.0.0
-gunicorn==21.2.0
+flask==3.0.3
+flask-cors==5.0.0
+gunicorn==23.0.0
 supabase==2.9.0
-python-dotenv==1.0.0
-ultralytics==8.1.0
-opencv-python-headless==4.8.1.78
-PyJWT==2.8.0
-bcrypt==4.1.2
-pillow==10.1.0
+python-dotenv==1.0.1
+ultralytics==8.3.0
+opencv-python-headless==4.10.0.84
+PyJWT==2.9.0
+bcrypt==4.2.1
+pillow==11.0.0
 websockets==14.1
-httpx==0.27.2
-# Use pre-built binaries only
---only-binary=:all:
-numpy==1.24.3
-scipy==1.10.1
-torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu
-torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cpu
+httpx==0.28.1
+numpy==2.2.0
+scipy==1.14.1
+torch==2.5.1
+torchvision==0.20.1

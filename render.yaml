@@ -3,14 +3,10 @@ services:
     name: attendance-backend
     runtime: python
     plan: free
-    # Install system dependencies FIRST
-    buildCommand: |
-      pip install --upgrade pip setuptools wheel
-      pip install --no-cache-dir -r requirements.txt
+    buildCommand: pip install --no-cache-dir -r requirements.txt
     startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app:app
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
+      # Remove PYTHON_VERSION - let Render use latest
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_KEY
