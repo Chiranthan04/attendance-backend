@@ -35,19 +35,20 @@
 # torchvision==0.16.0
 
 
-Flask==3.0.0
-Flask-CORS==4.0.0
-python-dotenv==1.0.0
-supabase==2.3.0
+flask==3.0.0
+flask-cors==4.0.0
 gunicorn==21.2.0
-numpy==1.24.3
-opencv-python-headless==4.8.1.78
-scipy==1.11.4
+supabase==2.9.0
+python-dotenv==1.0.0
 ultralytics==8.1.0
-deepface==0.0.89
-Pillow==10.1.0
+opencv-python-headless==4.8.1.78
 PyJWT==2.8.0
-requests==2.31.0
-tf-keras==2.16.0
-tensorflow==2.16.1
-protobuf==3.20.3
+bcrypt==4.1.2
+pillow==10.2.0
+websockets==14.1
+httpx==0.27.2
+numpy==1.24.3
+scipy==1.10.1
+torch==2.1.0
+torchvision==0.16.0
+

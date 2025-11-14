@@ -2,14 +2,12 @@ services:
   - type: web
     name: attendance-backend
     runtime: python
-    region: singapore
     plan: free
-    branch: main
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 300 app:app
+    buildCommand: |
+      pip install --upgrade pip setuptools wheel
+      pip install --no-cache-dir -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app:app
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_KEY
@@ -20,10 +18,11 @@ services:
         value: production
       - key: YOLO_MODEL_PATH
         value: models/best.pt
+      - key: EMBEDDINGS_BUCKET
+        value: embeddings
+      - key: EMBEDDINGS_FILE
+        value: sface_embeddings_database.pickle
       - key: SFACE_THRESHOLD
         value: "0.8"
       - key: YOLO_CONFIDENCE
         value: "0.2"
-      - key: PORT
-        value: "5000"
-    healthCheckPath: /health
