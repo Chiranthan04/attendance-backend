@@ -16,8 +16,8 @@ services:
         sync: false
       - key: FLASK_ENV
         value: production
-      - key: YOLO_MODEL_PATH
-        value: models/best.pt
+      - key: YOLO_MODEL_ONNX_PATH
+        value: models/best.onnx
       - key: EMBEDDINGS_BUCKET
         value: embeddings
       - key: EMBEDDINGS_FILE
