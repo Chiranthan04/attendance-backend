@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: attendance-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: YOLO_MODEL_PATH
+        value: models/best.pt
+      - key: EMBEDDINGS_BUCKET
+        value: embeddings
+      - key: EMBEDDINGS_FILE
+        value: sface_embeddings_database.pickle
+      - key: SFACE_THRESHOLD
+        value: "0.8"
+      - key: YOLO_CONFIDENCE
+        value: "0.2"
