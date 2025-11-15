@@ -1,0 +1,14 @@
+apiVersion: cloudbuild.googleapis.com/v1
+kind: BuildTrigger
+metadata:
+  name: attendance-backend-trigger
+spec:
+  triggerTemplate:
+    repoName: attendance-backend
+    branchName: "main"
+  build:
+    steps:
+      - name: "gcr.io/cloud-builders/docker"
+        args: ["build", "-t", "asia-south1-docker.pkg.dev/	attendance-backend-478309/attendance-docker/attendance-backend", "."]
+      - name: "gcr.io/cloud-builders/docker"
+        args: ["push", "asia-south1-docker.pkg.dev/	attendance-backend-478309/attendance-docker/attendance-backend"]
