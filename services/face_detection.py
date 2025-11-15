@@ -5,41 +5,44 @@ import os
 import warnings
 import numpy as np
 
-# Suppress warnings
 warnings.filterwarnings('ignore')
 
 class FaceDetectionService:
     def __init__(self):
-        print(f"🔧 Loading YOLO model from {Config.YOLO_MODEL_PATH}...")
+        model_path = Config.YOLO_MODEL_PATH
+        bucket = Config.EMBEDDINGS_BUCKET
 
-        # Check if model exists locally, else download from Supabase
-        if not os.path.exists(Config.YOLO_MODEL_PATH):
-            print(f"📥 Model not found locally. Downloading from Supabase Storage...")
+        print(f"🔧 Checking YOLO model at: {model_path}")
+
+        # If model doesn't exist → download from Supabase
+        if not os.path.exists(model_path):
+            print(f"📥 Model not found locally. Downloading from Supabase bucket '{bucket}'...")
             try:
-                res = supabase_client.storage.from_(Config.EMBEDDINGS_BUCKET) \
-                    .download('best.pt')
-                os.makedirs(os.path.dirname(Config.YOLO_MODEL_PATH), exist_ok=True)
-                with open(Config.YOLO_MODEL_PATH, 'wb') as f:
-                    f.write(res)
-                print("✅ Model downloaded successfully")
+                data = supabase_client.storage.from_(bucket).download("best.pt")
+
+                os.makedirs(os.path.dirname(model_path), exist_ok=True)
+                with open(model_path, "wb") as f:
+                    f.write(data)
+
+                print("✅ Best.pt downloaded successfully from Supabase")
             except Exception as e:
-                print(f"❌ Error downloading model: {e}")
-                print("⚠️  Please manually place best.pt in models/ folder")
+                print(f"❌ Failed to download YOLO model: {e}")
                 raise
 
-        # Load the YOLO PyTorch model
+        # Load YOLO
         try:
-            self.model = YOLO(Config.YOLO_MODEL_PATH)
+            self.model = YOLO(model_path)
             print("✅ YOLO model loaded successfully")
         except Exception as e:
             print(f"❌ Error loading YOLO model: {e}")
             raise
 
     def detect_faces(self, image: np.ndarray) -> np.ndarray:
-        """Detect faces in an image using YOLOv12 .pt model"""
-        results = self.model(image, conf=Config.YOLO_CONFIDENCE, verbose=False)
-        boxes = results[0].boxes.xyxy.cpu().numpy().astype(int)
+        """Run YOLO detection on numpy image"""
+        predictions = self.model(image, conf=Config.YOLO_CONFIDENCE, verbose=False)
+        boxes = predictions[0].boxes.xyxy.cpu().numpy().astype(int)
         return boxes
+
 
 # Singleton instance
 face_detector = FaceDetectionService()
