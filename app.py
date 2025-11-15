@@ -37,5 +37,10 @@ embeddings_loader.load_embeddings_database()
 print("✅ Backend ready!")
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 8080))
     app.run(host='0.0.0.0', port=port, debug=Config.FLASK_ENV=='development')
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
