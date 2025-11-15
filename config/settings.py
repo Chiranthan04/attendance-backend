@@ -16,7 +16,7 @@ class Config:
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     
     # Models
-    YOLO_MODEL_PATH = os.getenv('YOLO_MODEL_PATH', 'models/best.onnx')  # ONNX model path default
+    YOLO_MODEL_PATH = os.getenv('YOLO_MODEL_PATH', 'models/best.pt')  # ONNX model path default
     SFACE_THRESHOLD = float(os.getenv('SFACE_THRESHOLD', 0.8))
     YOLO_CONFIDENCE = float(os.getenv('YOLO_CONFIDENCE', 0.2))
     FACE_MODEL_NAME = 'SFace'
